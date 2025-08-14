@@ -12,8 +12,6 @@ WORKDIR /app
 
 COPY --from=build /app/publish ./
 
-COPY AI.CryptoAdvisor.Api\CryptoAdvisor.db ./ 
-
-ENV ASPNETCORE_URLS=http://AICryptoAdvisor:${7140}
+ENV ASPNETCORE_URLS=http://+:${PORT}
 
 ENTRYPOINT ["dotnet", "AI.CryptoAdvisor.Api.dll"]
