@@ -85,14 +85,14 @@ namespace AI.CryptoAdvisor.Api
 
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("AllowLocalhost5173",
-                    policy =>
-                    {
-                        policy.WithOrigins("http://localhost:5173")
-                              .AllowAnyHeader()
-                              .AllowAnyMethod();
-                    });
+                options.AddPolicy("AllowAll", policy =>
+                {
+                    policy.AllowAnyOrigin()
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
             });
+
 
             var app = builder.Build();
 
@@ -104,7 +104,7 @@ namespace AI.CryptoAdvisor.Api
             }
 
             app.UseHttpsRedirection();
-            app.UseCors("AllowLocalhost5173");
+            app.UseCors("AllowAll");
 
             app.UseAuthentication();
             app.UseAuthorization();
