@@ -1,7 +1,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-COPY AI.CryptoAdvisor.Api.csproj ./
+COPY *.csproj ./
 RUN dotnet restore AI.CryptoAdvisor.Api.csproj
 
 COPY AI.CryptoAdvisor.Api/. ./
