@@ -85,13 +85,19 @@ namespace AI.CryptoAdvisor.Api
 
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("AllowFrontend",
-       builder => builder
-           .WithOrigins("https://ai-crypto-advisor-frontend.vercel.app")
-           .AllowAnyHeader()
-           .AllowAnyMethod()
-   );
+                options.AddPolicy("AllowFrontend", policy =>
+                {
+                    policy
+                        .WithOrigins(
+                            "https://ai-crypto-advisor-frontend.vercel.app",
+                            "http://localhost:3000"
+                        )
+                        .SetIsOriginAllowed(origin => origin.EndsWith(".vercel.app") || origin == "http://localhost:3000")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
             });
+
 
 
             var app = builder.Build();
