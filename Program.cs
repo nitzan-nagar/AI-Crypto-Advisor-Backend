@@ -47,6 +47,7 @@ namespace AI.CryptoAdvisor.Api
                 });
             });
 
+            
             builder.Services.AddScoped<JwtService>();
 
             builder.Services.AddHttpClient();
@@ -99,7 +100,6 @@ namespace AI.CryptoAdvisor.Api
             });
 
 
-
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -109,7 +109,7 @@ namespace AI.CryptoAdvisor.Api
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
+         //   app.UseHttpsRedirection();
             app.UseCors("AllowFrontend");
 
             app.UseAuthentication();
