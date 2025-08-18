@@ -30,14 +30,11 @@ namespace AI.CryptoAdvisor.Api.Controllers
                 "insights",
                 async (client) =>
                 {
-                    // הגדרת Authorization עם מפתח OpenRouter
                     client.DefaultRequestHeaders.Authorization =
                         new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _configuration["ApiKeys:OpenRouter"]);
 
-                    // ה-URL של OpenRouter Chat Completions
                     var openAiUrl = "https://openrouter.ai/api/v1/chat/completions";
 
-                    // גוף הבקשה
                     var requestBody = new
                     {
                         model = "openai/gpt-oss-20b:free",
@@ -47,16 +44,13 @@ namespace AI.CryptoAdvisor.Api.Controllers
                         }
                     };
 
-                    // שליחת הבקשה
                     var response = await client.PostAsJsonAsync(openAiUrl, requestBody);
                     Console.WriteLine(response);
                     response.EnsureSuccessStatusCode();
 
-                    // קריאת התשובה כ-JSON
                     var resultJson = await response.Content.ReadAsStringAsync();
                     var jsonDoc = JsonDocument.Parse(resultJson);
 
-                    // חילוץ הטקסט מהמענה
                     var insightText = jsonDoc.RootElement
                         .GetProperty("choices")[0]
                         .GetProperty("message")

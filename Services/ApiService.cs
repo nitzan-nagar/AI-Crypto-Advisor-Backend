@@ -16,11 +16,11 @@ namespace AI.CryptoAdvisor.Api.Services
         }
 
         public async Task<string> FetchContent(
-    string contentType,
-    Func<HttpClient, Task<string>> fetchApiFunc,
-    double cacheMinutes,
-    string fallback
-)
+            string contentType,
+            Func<HttpClient, Task<string>> fetchApiFunc,
+            double cacheMinutes,
+            string fallback
+        )
         {
             var cache = _dbContext.ContentCaches.FirstOrDefault(c => c.ContentType == contentType);
             if (cache != null && (DateTime.UtcNow - cache.FetchedAt).TotalMinutes < cacheMinutes)
@@ -30,28 +30,16 @@ namespace AI.CryptoAdvisor.Api.Services
             {
                 var response = await fetchApiFunc(_httpClient);
 
-                // בדיקה אם זה JSON
                 try
                 {
                     using var doc = JsonDocument.Parse(response);
-                    // אם Parse מצליח => זה JSON, מחזירים כמו שהוא
                 }
                 catch
                 {
-                    // אם Parse נכשל => עטוף אותו במבנה JSON
-                    if (contentType == "news" || contentType == "coins" || contentType == "memes")
-                    {
-                        // לדוגמה, חדשות / מטבעות / memes => מערך עם הודעה אחת
-                        response = JsonSerializer.Serialize(new[] { response });
-                    }
-                    else
-                    {
-                        // לכל סוג אחר => מחזיר סטרינג רגיל
-                        response = JsonSerializer.Serialize(response);
-                    }
+                    
+                    return JsonSerializer.Serialize(new { message = fallback });
                 }
 
-                // שמירת Cache
                 if (cache == null)
                 {
                     cache = new ContentCache { ContentType = contentType };
@@ -65,8 +53,7 @@ namespace AI.CryptoAdvisor.Api.Services
             }
             catch
             {
-                // במקרה של שגיאה => עטוף את fallback גם כן במבנה JSON
-                return JsonSerializer.Serialize(new[] { fallback });
+                return JsonSerializer.Serialize(new { message = fallback });
             }
         }
 
