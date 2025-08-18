@@ -110,7 +110,7 @@ namespace AI.CryptoAdvisor.Api
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseCors("AllowFrontend");
             app.UseRouting();
             app.UseAuthentication();
