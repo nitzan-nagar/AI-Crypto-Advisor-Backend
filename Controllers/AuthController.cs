@@ -2,6 +2,7 @@
 using AI.CryptoAdvisor.Api.Dtos;
 using AI.CryptoAdvisor.Api.Models;
 using AI.CryptoAdvisor.Api.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
@@ -9,6 +10,7 @@ using System.Text;
 
 namespace AI.CryptoAdvisor.Api.Controllers
 {
+    [AllowAnonymous]
     [ApiController]
     [Route("api/[controller]")]
     public class AuthController : ControllerBase

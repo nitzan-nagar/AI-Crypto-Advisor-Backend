@@ -91,11 +91,12 @@ namespace AI.CryptoAdvisor.Api
                     policy
                         .WithOrigins(
                             "https://ai-crypto-advisor-frontend.vercel.app",
-                            "http://localhost:3000"
+                            "http://localhost:5173"
                         )
-                        .SetIsOriginAllowed(origin => origin.EndsWith(".vercel.app") || origin == "http://localhost:3000")
+                        //.SetIsOriginAllowed(origin => origin.EndsWith(".vercel.app") || origin == "http://localhost:5173")
                         .AllowAnyHeader()
-                        .AllowAnyMethod();
+                        .AllowAnyMethod()
+                        .AllowCredentials();
                 });
             });
 
@@ -109,9 +110,9 @@ namespace AI.CryptoAdvisor.Api
                 app.UseSwaggerUI();
             }
 
-         //   app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             app.UseCors("AllowFrontend");
-
+            app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
 
