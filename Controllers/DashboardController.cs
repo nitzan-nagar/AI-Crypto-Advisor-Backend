@@ -57,7 +57,7 @@ namespace AI.CryptoAdvisor.Api.Controllers
                         .GetProperty("message")
                         .GetProperty("content")
                         .GetString();
-                    Console.WriteLine("&&&&&&&&&&&&&&&&&&&&" + insightText);
+                    
                     return insightText;
                 },
                 cacheMinutes: 1440,

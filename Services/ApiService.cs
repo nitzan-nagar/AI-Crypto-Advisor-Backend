@@ -32,7 +32,10 @@ namespace AI.CryptoAdvisor.Api.Services
 
                 try
                 {
-                    using var doc = JsonDocument.Parse(response);
+                    if(contentType != "insights")
+                    {
+                        using var doc = JsonDocument.Parse(response);
+                    }
                 }
                 catch
                 {
