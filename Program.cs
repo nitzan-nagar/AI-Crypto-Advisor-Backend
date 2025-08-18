@@ -47,6 +47,21 @@ namespace AI.CryptoAdvisor.Api
                 });
             });
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowFrontend", policy =>
+                {
+                    policy
+                        .WithOrigins(
+                            "https://ai-crypto-advisor-frontend.vercel.app",
+                            "http://localhost:5173"
+                        )
+                        //.SetIsOriginAllowed(origin => origin.EndsWith(".vercel.app") || origin == "http://localhost:5173")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                });
+            });
             
             builder.Services.AddScoped<JwtService>();
 
@@ -84,21 +99,6 @@ namespace AI.CryptoAdvisor.Api
                 };
             });
 
-            builder.Services.AddCors(options =>
-            {
-                options.AddPolicy("AllowFrontend", policy =>
-                {
-                    policy
-                        .WithOrigins(
-                            "https://ai-crypto-advisor-frontend.vercel.app",
-                            "http://localhost:5173"
-                        )
-                        //.SetIsOriginAllowed(origin => origin.EndsWith(".vercel.app") || origin == "http://localhost:5173")
-                        .AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .AllowCredentials();
-                });
-            });
 
 
             var app = builder.Build();
@@ -110,7 +110,7 @@ namespace AI.CryptoAdvisor.Api
                 app.UseSwaggerUI();
             }
 
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             app.UseCors("AllowFrontend");
             app.UseRouting();
             app.UseAuthentication();
