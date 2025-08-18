@@ -49,7 +49,9 @@ namespace AI.CryptoAdvisor.Api.Controllers
                     response.EnsureSuccessStatusCode();
 
                     var resultJson = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine(resultJson);
                     var jsonDoc = JsonDocument.Parse(resultJson);
+                    Console.WriteLine(jsonDoc.RootElement.ToString());
 
                     var insightText = jsonDoc.RootElement
                         .GetProperty("choices")[0]
