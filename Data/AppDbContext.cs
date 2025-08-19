@@ -17,6 +17,7 @@ namespace AI.CryptoAdvisor.Api.Data
         public DbSet<User> Users { get; set; }
         public DbSet<UserPreferences> UserPreferences { get; set; }
         public DbSet<ContentCache> ContentCaches { get; set; }
+        public DbSet<UserVote> UserVotes { get; set; }
         // Define DbSet properties for your entities
         // public DbSet<YourEntity> YourEntities { get; set; }
     }

@@ -34,7 +34,6 @@ namespace AI.CryptoAdvisor.Api.Services
                 {
                     if(contentType != "insights")
                     {
-                        Console.WriteLine("@@@@@@@@@" + response);
                         using var doc = JsonDocument.Parse(response);
                     }
                     else if(response == null)

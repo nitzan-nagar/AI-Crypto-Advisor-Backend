@@ -70,12 +70,7 @@ namespace AI.CryptoAdvisor.Api.Controllers
                 {
                     var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Data", "memes.json");
                     var json = await System.IO.File.ReadAllTextAsync(filePath);
-                    Console.WriteLine("*******************Memes JSON: " + json);
                     return json;
-                    //var url = "https://www.reddit.com/r/cryptomemes/.json?limit=100&t=day";
-                    //client.DefaultRequestHeaders.UserAgent.ParseAdd("CryptoDashboard/0.1");
-                    //Console.WriteLine("&&&&&&&&&&&&&&&&&&&&&" + await client.GetStringAsync(url));
-                    //return await client.GetStringAsync(url);
                 },
                 cacheMinutes: 5,
                 fallback: "No AI memes available"
